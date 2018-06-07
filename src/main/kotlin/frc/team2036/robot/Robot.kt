@@ -1,23 +1,8 @@
 package frc.team2036.robot
 
-import edu.wpi.first.wpilibj.IterativeRobot
+import frc.team2036.robot.knightarmor.KnightBot
 
-class Robot : IterativeRobot() {
-    override fun robotInit() {}
-
-    override fun disabledInit() {}
-
-    override fun autonomousInit() {}
-
-    override fun teleopInit() {}
-
-    override fun testInit() {}
-
-    override fun disabledPeriodic() {}
-
-    override fun autonomousPeriodic() {}
-
-    override fun teleopPeriodic() {}
-
-    override fun testPeriodic() {}
-}
+/**
+ * TODO: put 2018-2019 season code here
+ */
+class Robot : KnightBot()
