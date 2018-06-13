@@ -19,6 +19,7 @@ open class KnightBot : TimedRobot() {
      * What happens when the robot begins its autonomous period
      */
     override fun autonomousInit() {
+        //TODO: make an easy way of registering or making an autonomous command or command group
         Scheduler.getInstance().removeAll()
     }
 
