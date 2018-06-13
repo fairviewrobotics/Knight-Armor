@@ -23,3 +23,9 @@ Javadoc coming soon (hopefully)!
 
 ## Features
 Coming soon (hopefully)!
+
+## Useful links
+http://first.wpi.edu/FRC/roborio/release/docs/java/ for the JavaDoc on WPILib \
+https://wpilib.screenstepslive.com/s/currentCS/m/java for the FRC Java Programming guide\
+http://kotlinlang.org/docs/reference/ for Kotlin documentation \
+https://github.com/Open-RIO/GradleRIO for the GradleRIO GitHub page
