@@ -1,5 +1,7 @@
 package frc.team2036.robot.knightarmor
 
+import java.util.*
+
 /**
  * The different types of messages that KnightScribe can report
  */
@@ -10,7 +12,7 @@ enum class KnightScribeLogLevel {
 /**
  * An object that handles logging
  * Has different modes depending on what is required of logger
- * Also makes displaying information to shuffleboard and displaying information to a terminal easy
+ * DOES NOT HANDLE DISPLAYING INFORMATION TO SHUFFLEBOARD, but this can be done by adding messageListeners to the KnightScribe
  */
 object KnightScribe {
 
@@ -31,29 +33,49 @@ object KnightScribe {
 
     //The messages that the scribe is keeping track of
     private val messages = mutableListOf<LogMessage>()
-    //How many messages the scribe should keep track of
+
+    /**
+     * Gets the most recent messages
+     * Size of returned list is determined by maxMessages
+     */
+    val recentMessages get() = this.messages.toList()
+
+    /**
+     * How many messages the scribe should keep track of
+     * -1 maxMessages means the scribe will hold all the messages: THIS WILL RUN THE ROBORIO OUT OF MEMORY
+     * Only -1 maxMessages (all messages stored) when temporarily testing
+     */
     val maxMessages: Int = 0
+
+    //Listeners that can react to incoming messages
+    val messageListeners = mutableListOf<(String, String, Date) -> Unit>()
 
     /**
      * A function that records the given log message
      */
-    fun log(message: String, level: KnightScribeLogLevel) {
-        this.innerLog(LogMessage(message, level.name))
+    fun log(message: String, level: KnightScribeLogLevel): String {
+        return this.innerLog(LogMessage(message, level.name))
     }
 
     /**
      * A function that logs a message from Knight-Armor
      * Can only be used from within Knight-Armor
      */
-    internal fun knightLog(message: String) {
-        this.innerLog(LogMessage(message, "KNIGHT_ARMOR"))
+    internal fun knightLog(message: String): String {
+        return this.innerLog(LogMessage(message, "KNIGHT_ARMOR"))
     }
 
     /**
      * A function that can only be used by Knight-Armor that actually handles the logging
      */
-    internal fun innerLog(logMessage: LogMessage) {
-        //TODO:
+    private fun innerLog(logMessage: LogMessage): String {
+        println(logMessage)
+        this.messages.add(logMessage)
+        while (this.messages.size > maxMessages && maxMessages != -1) {
+            this.messages.removeAt(0)
+        }
+        this.messageListeners.forEach { it(logMessage.message, logMessage.logLevel, logMessage.time) }
+        return logMessage.toString()
     }
 
 }
