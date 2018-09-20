@@ -36,18 +36,18 @@ object KnightScribe {
 
     /**
      * Gets the most recent messages
-     * Size of returned list is determined by maxMessages
+     * Size of returned list is bounded by maxMessages
      */
     val recentMessages get() = this.messages.toList()
 
     /**
      * How many messages the scribe should keep track of
      * -1 maxMessages means the scribe will hold all the messages: THIS WILL RUN THE ROBORIO OUT OF MEMORY
-     * Only -1 maxMessages (all messages stored) when temporarily testing
+     * Only use -1 maxMessages (all messages stored) when temporarily testing
      */
     val maxMessages: Int = 0
 
-    //Listeners that can react to incoming messages
+    //Listeners that can react to incoming messages; format is (message, logLevel, time) -> your action
     val messageListeners = mutableListOf<(String, String, Date) -> Unit>()
 
     /**
@@ -66,7 +66,7 @@ object KnightScribe {
     }
 
     /**
-     * A function that can only be used by Knight-Armor that actually handles the logging
+     * A function that can only be used by KnightScribe that actually handles the logging
      */
     private fun innerLog(logMessage: LogMessage): String {
         println(logMessage)
