@@ -6,20 +6,24 @@ package frc.team2036.robot.knightarmor
  */
 object KnightPortRegistry {
 
-    data class Port (val port_number: Int, val subsytem: String){}
+    /**
+     * A small inner class that represents a port that is in use on the RIO
+     */
+    data class Port(val portNumber: Int, val subsytem: String)
 
-    val ports = mutableListOf<Port>()
-        get() = field
+    //A set of all ports in use; getter returns a copy of the list
+    private val ports = mutableSetOf<Port>()
 
-    //TODO: make
+    //Gets the ports in use
+    val portsInUse get() = this.ports
 
     // register a port with a io port number, a controller port, and the subsytem registering the port
-    fun register(port_number: Int, subsytem: String){
-        val prev_use = ports.firstOrNull( {port -> port.port_number == port_number})
-        if(prev_use == null){
-            ports.add(Port(port_number, subsytem));
+    fun register(portNumber: Int, subsytem: String) {
+        val previouslyUsed = ports.firstOrNull { port -> port.portNumber == portNumber }
+        if (previouslyUsed == null) {
+            ports.add(Port(portNumber, subsytem))
         } else {
-            throw Exception("Port Number in Use\nPort $port_number was attempted to be registered by $subsytem, already in use by ${prev_use.subsytem}")
+            throw Exception("Port Number in Use\nPort $portNumber was attempted to be registered by $subsytem, already in use by ${previouslyUsed.subsytem}")
         }
     }
 
