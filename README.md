@@ -7,7 +7,7 @@ Knight-Armor is made to make robot code a little easier, cleaner, and more idiom
 ## Setup
 To setup a Knight-Armor project, just clone this repository.
 Ensure that all of the gradle dependencies are up to date.
-As of right now, the things to check up on in `build.gradle` are `id "org.jetbrains.kotlin.jvm" version "1.2.41"`, `id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"`, and `gradleVersion = '4.4'`.
+As of right now, the things to check up on in `build.gradle` are `id "org.jetbrains.kotlin.jvm" version "1.2.71"`, `id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"`, and `gradleVersion = '4.4'`.
 
 ## Use
 To use the Knight-Armor project, code your robot as normal, but rather than using normal WPI classes, use Knight-Armor classes.
@@ -19,7 +19,7 @@ Furthermore, the code located in the knightarmor package shouldn't be tampered w
 Knight-Armor is using [GradleRIO](https://github.com/Open-RIO/GradleRIO), so the deploy steps for Knight-Armor will be the same as the deploy steps for GradleRIO. TODO: put instructions here also so looking at GradleRIO is unnecessary.
 
 ## Documentation
-Javadoc coming soon (hopefully)!
+Javadoc coming soon (hopefully)! Will ideally be put in docs folder of the master branch so that it can be made into a Github Pages site.
 
 ## Features
 Coming soon (hopefully)!
