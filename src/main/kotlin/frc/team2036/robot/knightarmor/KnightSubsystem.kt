@@ -16,7 +16,7 @@ open class KnightSubsystem : Subsystem() {
         //A list of the names of all the subsystems; to actually publicly get, see registeredSubsystemNames
         private val allSubsystemNames = mutableListOf<String>()
         //A getter for all the names of the registeredSubsystems
-        val registeredSubsystemNames get() = this.allSubsystemNames.toMutableList() //Creates a copy
+        val registeredSubsystemNames get() = this.allSubsystemNames.toList()
     }
 
     /**

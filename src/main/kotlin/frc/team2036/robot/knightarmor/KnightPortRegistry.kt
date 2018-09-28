@@ -23,7 +23,7 @@ object KnightPortRegistry {
     private val ports = mutableSetOf<RioPort>()
 
     //Gets the ports in use
-    val portsInUse get() = this.ports.toMutableSet() //Creates a copy
+    val portsInUse get() = this.ports.toSet()
 
     /**
      * Registers a port with a RoboRIO port number and the subsystem registering the port
