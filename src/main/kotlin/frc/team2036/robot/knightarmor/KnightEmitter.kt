@@ -3,21 +3,32 @@ package frc.team2036.robot.knightarmor
 /**
  * A class for message emitters to extend
  */
-
-class KnightEmitter<T> {
-
-    private val listeners = mutableListOf<(T) -> Unit>()
+open class KnightEmitter<T> {
 
     /**
-     * add a listener that recives all messages */
+     * A list of listeners mapped by their arbitrary names
+     */
+    private val listeners = mutableMapOf<String, (T) -> Unit>()
 
-    fun addListener(listener: (T) -> Unit ){
-        listeners.add(listener)
+    /**
+     * Adds a listener with the given name
+     */
+    fun addListener(name: String, listener: (T) -> Unit) {
+        this.listeners[name] = listener
     }
 
     /**
-     * send a message to all listeners */
-    protected fun emit(message: T){
-        listeners.forEach( {listener -> listener(message)} )
+     * Removes the listener with the given name
+     */
+    fun removeListener(name: String) {
+        this.listeners.remove(name)
     }
+
+    /**
+     * Send a message to all listeners
+     */
+    protected fun emit(message: T) {
+        this.listeners.values.forEach { listener -> listener(message) }
+    }
+
 }
