@@ -14,7 +14,7 @@ enum class KnightScribeLogLevel {
  * Has different modes depending on what is required of logger
  * DOES NOT HANDLE DISPLAYING INFORMATION TO SHUFFLEBOARD, but this can be done by adding messageListeners to the KnightScribe
  */
-object KnightScribe {
+object KnightScribe : KnightEmitter<KnightScribe.LogMessage>() {
 
     /**
      * The format in which messages are stored
@@ -47,9 +47,6 @@ object KnightScribe {
      */
     val maxMessages: Int = 0
 
-    //Listeners that can react to incoming messages; format is (message, logLevel, time) -> your action
-    val messageListeners = mutableListOf<(String, String, Date) -> Unit>()
-
     /**
      * A function that records the given log message
      */
@@ -74,7 +71,7 @@ object KnightScribe {
         while (this.messages.size > maxMessages && maxMessages != -1) {
             this.messages.removeAt(0)
         }
-        this.messageListeners.forEach { it(logMessage.message, logMessage.logLevel, logMessage.time) }
+        this.emit(logMessage)
         return logMessage.toString()
     }
 
