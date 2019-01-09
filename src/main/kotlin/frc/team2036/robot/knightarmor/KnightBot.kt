@@ -20,6 +20,7 @@ open class KnightBot : TimedRobot() {
      */
     override fun autonomousInit() {
         //TODO: make an easy way of registering or making an autonomous command or command group
+        KnightScribe.knightLog("Starting autonomous phase!")
         Scheduler.getInstance().removeAll()
     }
 
@@ -35,6 +36,7 @@ open class KnightBot : TimedRobot() {
      * What happens when the robot begins its teleoperated period
      */
     override fun teleopInit() {
+        KnightScribe.knightLog("Starting teleoperated phase!")
         Scheduler.getInstance().removeAll()
     }
 
@@ -50,6 +52,7 @@ open class KnightBot : TimedRobot() {
      * What happens when the robot begins its test period
      */
     override fun testInit() {
+        KnightScribe.knightLog("Starting test phase!")
         Scheduler.getInstance().removeAll()
     }
 
