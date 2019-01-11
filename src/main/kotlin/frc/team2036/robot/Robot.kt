@@ -1,40 +1,41 @@
 package frc.team2036.robot
 
+import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.PWMTalonSRX
 import frc.team2036.robot.knightarmor.KnightBot
 import edu.wpi.first.wpilibj.XboxController
+import edu.wpi.first.wpilibj.drive.DifferentialDrive
 
-//The driverstation port where the controller is connected
-const val CONTROLLER_PORT = 0
-
-/**
- * The main and only class for the DDR bot
- * Is a timed robot which will have some of its methods periodically called
- */
 class Robot : KnightBot() {
 
-    //The DDR mat; is of type XboxController, but doesn't really need to be an XboxController
     lateinit var controller: XboxController
+    lateinit var mechanismTalon1: PWMTalonSRX
+    lateinit var mechanismTalon2: PWMTalonSRX
+    lateinit var drivetrain: DifferentialDrive
 
-    lateinit var talon1: PWMTalonSRX
-    lateinit var talon2: PWMTalonSRX
-
-    /**
-     * Initializer that sets up the controller and the drivetrain
-     */
     override fun robotInit() {
-        this.controller = XboxController(CONTROLLER_PORT)
-        this.talon1 = PWMTalonSRX(0)
-        this.talon2 = PWMTalonSRX(3)
+        this.controller = XboxController(0)
+        this.mechanismTalon1 = PWMTalonSRX(2)
+        this.mechanismTalon2 = PWMTalonSRX(3)
+        this.drivetrain = DifferentialDrive(PWMTalonSRX(1), PWMTalonSRX(0))
     }
 
-    /**
-     * Polls the controller and then runs the robot
-     * Gets called repeatedly during the teleoperated period
-     */
     override fun teleopPeriodic() {
-        this.talon1.speed = -this.controller.y
-        this.talon2.speed = this.controller.y
+        this.drivetrain.arcadeDrive(-this.controller.getY(GenericHID.Hand.kLeft), this.controller.getX(GenericHID.Hand.kLeft))
+        when {
+            this.controller.getBumper(GenericHID.Hand.kLeft) -> {
+                this.mechanismTalon1.speed = -1.0
+                this.mechanismTalon2.speed = 1.0
+            }
+            this.controller.getBumper(GenericHID.Hand.kRight) -> {
+                this.mechanismTalon1.speed = 1.0
+                this.mechanismTalon2.speed = -1.0
+            }
+            else -> {
+                this.mechanismTalon1.speed = 0.0
+                this.mechanismTalon2.speed = 0.0
+            }
+        }
     }
 
 }
