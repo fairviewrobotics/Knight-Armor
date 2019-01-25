@@ -38,9 +38,9 @@ public class LineSensingAlgorithm {
 
     //algorithm vars
     //downscale size
-    private int sizeX = 420, sizeY = 320;
+    public int sizeX = 420, sizeY = 320;
     //blur size
-    private int blurSize = 11;
+    public int blurSize = 11;
 
     public void run(Mat input){
         //resize

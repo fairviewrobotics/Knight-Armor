@@ -24,13 +24,13 @@ class VisionRunner(val camera_index: Int, var x_target: Int, var y_target: Int, 
 
     public fun getDX(): Double {
         synchronized(this.line_sensing){
-            return this.x_cof* (this.line_sensing.algorithm.centroid_x - this.x_target);
+            return this.x_cof* (this.x_target - this.line_sensing.algorithm.centroid_x);
         }
     }
 
     public fun getDY(): Double {
         synchronized(this.line_sensing){
-            return this.y_cof* (this.line_sensing.algorithm.centroid_y - this.y_target);
+            return this.y_cof* (this.y_target - this.line_sensing.algorithm.centroid_y);
         }
     }
 

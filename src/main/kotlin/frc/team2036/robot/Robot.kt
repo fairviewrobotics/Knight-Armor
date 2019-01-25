@@ -25,7 +25,8 @@ class Robot : KnightBot() {
         this.grabMotor1 = PWMTalonSRX(5)
         this.grabMotor2 = PWMTalonSRX(6)
 
-        line_runner = VisionRunner(0, 210, 200, 0.003, 0.003, 0.005)
+        line_runner = VisionRunner(0, 120, 150, 0.003, 0.003, 0.005)
+        line_runner.line_sensing.algorithm.setDownscaleSize(240, 180)
         line_runner.start()
 
     }
@@ -39,7 +40,16 @@ class Robot : KnightBot() {
 
 
         //run drive train
-        this.drivetrain.driveCartesian(-this.controller.getY(GenericHID.Hand.kLeft) * 1.0, -this.controller.getX(GenericHID.Hand.kLeft) *1.0, this.controller.getX(GenericHID.Hand.kRight) * 1.0)
+        if(this.controller.getXButton()){
+            synchronized(this.line_runner) {
+                //run alignment
+                this.drivetrain.driveCartesian(this.line_runner.getDX(), this.line_runner.getDY(), this.line_runner.getDTheta());
+                //this.drivetrain.driveCartesian(0.0, 0.0, this.line_runner.getDTheta());
+            }
+        } else {
+            //run teleop
+            this.drivetrain.driveCartesian(this.controller.getX(GenericHID.Hand.kLeft) * 1.0, -this.controller.getY(GenericHID.Hand.kLeft) *1.0, -this.controller.getX(GenericHID.Hand.kRight) * 1.0)
+        }
         //run elevator
         this.elevatorMotor.speed = this.controller.getY(GenericHID.Hand.kRight) * 1.0;
         //this.drivetrain.driveCartesian(1.0, 0.0, 0.0);
