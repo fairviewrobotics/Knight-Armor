@@ -25,7 +25,7 @@ class Robot : KnightBot() {
         this.grabMotor1 = PWMTalonSRX(5)
         this.grabMotor2 = PWMTalonSRX(6)
 
-        line_runner = VisionRunner(0, 120, 150, 0.003, 0.003, 0.005, 0.3, 0.3, 0.2)
+        line_runner = VisionRunner(0, 120, 150, 0.007, 0.007, 0.005, 0.2, 0.2, 0.1, 45, 45, 8)
         line_runner.line_sensing.algorithm.setDownscaleSize(240, 180)
         line_runner.start()
 
@@ -62,7 +62,7 @@ class Robot : KnightBot() {
                 }
         } else {
             //run teleop
-            this.drivetrain.driveCartesian(this.controller.getX(GenericHID.Hand.kLeft) * 1.0, -this.controller.getY(GenericHID.Hand.kLeft) *1.0, this.controller.getX(GenericHID.Hand.kRight) * 1.0)
+            this.drivetrain.driveCartesian(this.controller.getX(GenericHID.Hand.kLeft), -this.controller.getY(GenericHID.Hand.kLeft), this.controller.getX(GenericHID.Hand.kRight))
         }
         //run elevator
         this.elevatorMotor.speed = this.controller.getY(GenericHID.Hand.kRight) * 1.0;
@@ -71,12 +71,12 @@ class Robot : KnightBot() {
         //run intake
         when {
             this.controller.getBumper(GenericHID.Hand.kLeft) -> {
-                this.grabMotor1.speed = -1.0
-                this.grabMotor2.speed = 1.0
+                this.grabMotor1.speed = -0.2
+                this.grabMotor2.speed = 0.2
             }
             this.controller.getBumper(GenericHID.Hand.kRight) -> {
-                this.grabMotor1.speed = 1.0
-                this.grabMotor2.speed = -1.0
+                this.grabMotor1.speed = 0.2
+                this.grabMotor2.speed = -0.2
             }
             else -> {
                 this.grabMotor1.speed = 0.0
