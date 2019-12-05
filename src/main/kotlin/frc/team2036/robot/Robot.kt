@@ -71,7 +71,7 @@ class Robot : KnightBot() {
 
     /* run repeatedly during the teleop period */
     override fun teleopPeriodic(){
-        drivetrain.driveCartesian(controller0.getX(),controller1.getX(), controller1.getY())
+        drivetrain.driveCartesian(controller0.getX(),controller0.getY(), controller1.getX())
     }
 
     /* run repeatedly during auto period */
