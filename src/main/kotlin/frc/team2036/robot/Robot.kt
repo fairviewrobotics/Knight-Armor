@@ -7,6 +7,7 @@ import frc.team2036.robot.knightarmor.KnightBot
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj.drive.MecanumDrive
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.Preferences
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX
@@ -57,9 +58,17 @@ class Robot : KnightBot() {
 
     override fun robotInit() {
 
+        /* create tab */
+        val tab = Shuffleboard.getTab("Shuffleboard Test")
+        tab.add("Sample Value", 4.56)
+
         controller0 = Joystick(0)
         controller1 = Joystick(1)
-        drivetrain = MecanumDrive(WPI_TalonSRX(1), WPI_TalonSRX(2), WPI_TalonSRX(3), WPI_TalonSRX(4))
+        var motor0 = WPI_TalonSRX(1)
+        var motor1 =  WPI_TalonSRX(2)
+        var motor2 = WPI_TalonSRX(3)
+        var motor3 = WPI_TalonSRX(4)
+        drivetrain = MecanumDrive(motor0, motor1, motor2, motor3)
 
         rearElevatorMotor = Spark(8)
         elevatorMotor = WPI_TalonSRX(20)
